@@ -1,5 +1,5 @@
 import numpy as np
-import decision_trees as dt
+import decision_trees2 as dt
 import nearest_neighbors as nn
 import clustering as kmeans
 
@@ -29,18 +29,24 @@ def load_data(fname):
   return X, Y
 
 
-# X,Y = load_data("data_1.txt")
-# print(X,Y)
-# max_depth = 3
-# DT = dt.DT_train_binary(X,Y,max_depth)
-# test_acc = dt.DT_test_binary(X,Y,DT)
-# print("DT:",test_acc)
+X,Y = load_data("data_3.txt")
+print(X,Y)
+max_depth = 3
+
+DT = dt.DT_train_binary(X,Y,max_depth)
+
+test_acc = dt.DT_test_binary(X,Y,DT)
+print("DT:",test_acc)
 #
-X,Y = load_data("data_4.txt")
-acc = nn.KNN_test(X,Y,X,Y,1)
-print("KNN:", acc)
+# X,Y = load_data("data_4.txt")
+# best_k=nn.choose_K(X,Y,X,Y)
+# print("KNN:", best_k)
+# acc = nn.KNN_test(X,Y,X,Y,1)
+#print("KNN:", acc)
+
 
 # X,Y = load_data("data_5.txt")
+# kmeans.K_Means_better(X,2)
 # mu = np.array([[1],[5]])
 # mu = kmeans.K_Means(X,2,mu)
 # print("KMeans:",mu)

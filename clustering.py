@@ -37,3 +37,20 @@ def K_Means(X, n, mu):
         return newmu
     else:
         return K_Means(X, n, newmu)
+def K_Means_better(X,K):
+    clus= K_Means(X, 2, [])
+    counter=0
+    while True:
+        clus2= K_Means(X, 2, [])
+        if(np.array_equal(clus,clus2)):
+            print(clus,clus2)
+            print("same2")
+            counter=counter+1
+            if(counter>3):
+                break
+
+        else:
+            clus=clus2
+            print("again")
+    print(clus)
+
