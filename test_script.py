@@ -1,5 +1,5 @@
 import numpy as np
-import decision_trees2 as dt
+import decision_trees as dt
 import nearest_neighbors as nn
 import clustering as kmeans
 
@@ -28,8 +28,16 @@ def load_data(fname):
   Y = np.array(Y)
   return X, Y
 
-
 X,Y = load_data("data_3.txt")
+print(X,Y)
+max_depth = 3
+
+DT = dt.DT_train_real(X,Y,max_depth)
+
+test_acc = dt.DT_test_real(X,Y,DT)
+print("DT:",test_acc)
+
+X,Y = load_data("data_2.txt")
 print(X,Y)
 max_depth = 3
 
