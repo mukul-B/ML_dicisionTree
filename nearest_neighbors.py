@@ -1,23 +1,22 @@
 import numpy as np
 
-
 def KNN_test(X, Y, a, b, K):
     accuracy = 0
     sample_size = len(b)
     for j in range(sample_size):
         distance = np.array([np.sum(np.square(abs(X[i] - a[j]))) for i in range(len(X))])
-        #print(distance)
+        print(distance)
+        print(K)
         idx = np.argsort(distance)[:K]
-        #print(idx)
+        print(idx)
         knear = np.array([Y[i] for i in idx]).sum()
+        print([distance[i] for i in idx], knear)
         label = 1 if knear > 0 else -1
-        #print(knear)
         if label == b[j]:
             accuracy = accuracy + 1
     return accuracy / float(sample_size)
 
 def choose_K(X_train,Y_train,X_val,Y_val):
-
     best_accuracy=0
     best_k=0
     for i in range(10):

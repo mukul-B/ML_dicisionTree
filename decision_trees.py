@@ -7,7 +7,6 @@ class Node:
         self.feature = feature
         self.theta = theta
 
-
 class Tree(object):
     "Generic tree node."
 
@@ -103,18 +102,17 @@ def DT_train_binary(X, Y, max_depth):
 
 
 def DT_test_binary(X, Y, DT):
-    print("test")
+    print("Testing DT")
     sample_size = len(Y)
     print(DT)
     accuracy = 0
     for i in range(sample_size):
         if DT_make_prediction(X[i], DT) == Y[i]:
             accuracy = accuracy + 1
-    return accuracy / sample_size
+    return accuracy / float(sample_size)
 
 
 def DT_make_prediction(x, DT):
-    print(DT)
     T = DT
     while T.name.feature != -1:
         if x[T.name.feature] == 0.0:
@@ -206,15 +204,14 @@ def DT_train_real(X, Y, max_depth):
 
 
 def DT_test_real(X, Y, DT):
-    print("test")
+    print("Testing DT")
     sample_size = len(Y)
     print(DT)
-    print("dt")
     accuracy = 0
     for i in range(sample_size):
         if DT_make_prediction_real(X[i], DT) == Y[i]:
             accuracy = accuracy + 1
-    return accuracy / sample_size
+    return accuracy / float(sample_size)
 
 
 def DT_make_prediction_real(x, DT):
