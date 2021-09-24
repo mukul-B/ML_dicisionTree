@@ -28,37 +28,40 @@ def load_data(fname):
   Y = np.array(Y)
   return X, Y
 
-X,Y = load_data("data_3.txt")
-print(X,Y)
-max_depth = 3
-
-DT = dt.DT_train_real(X,Y,max_depth)
-
-test_acc = dt.DT_test_real(X,Y,DT)
-print("DT:",test_acc)
-
-X,Y = load_data("data_2.txt")
-print(X,Y)
-max_depth = 3
-
-DT = dt.DT_train_binary(X,Y,max_depth)
-
-test_acc = dt.DT_test_binary(X,Y,DT)
-print("DT:",test_acc)
+# X,Y = load_data("data_3.txt")
+# print(X,Y)
+# max_depth = 3
+#
+# DT = dt.DT_train_real(X,Y,max_depth)
+#
+# test_acc = dt.DT_test_real(X,Y,DT)
+# print("DT:",test_acc)
+#
+# X,Y = load_data("data_2.txt")
+# print(X,Y)
+# max_depth = 3
+#
+# DT = dt.DT_train_binary(X,Y,max_depth)
+#
+# test_acc = dt.DT_test_binary(X,Y,DT)
+# print("DT:",test_acc)
 #
 # X,Y = load_data("data_4.txt")
 # best_k=nn.choose_K(X,Y,X,Y)
 # print("KNN:", best_k)
 # acc = nn.KNN_test(X,Y,X,Y,1)
-#print("KNN:", acc)
+# print("KNN:", acc)
+
 
 
 # X,Y = load_data("data_5.txt")
-# kmeans.K_Means_better(X,2)
+# # mu=kmeans.K_Means_better(X,2)
 # mu = np.array([[1],[5]])
 # mu = kmeans.K_Means(X,2,mu)
 # print("KMeans:",mu)
 
-# X,Y = load_data("data_6.txt")
-# mu = kmeans.K_Means(X,2,[])
-# print("KMeans:",mu)
+X,Y = load_data("data_6.txt")
+#mu = kmeans.K_Means_nr(X,2,[])
+mu=kmeans.K_Means_better(X,2)
+print("KMeans:",mu)
+# ('KMeans:', [array([2.3, 2.9]), array([8. , 4.8])])

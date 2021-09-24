@@ -1,56 +1,65 @@
 import numpy as np
+import random
 
 
-def K_Means(X, n, mu):
-    import random
-
-    if (len(mu) == 0):
-        randomlist = np.array(random.sample(X, n))
-        print(randomlist)
-        mu = randomlist
-    print(mu)
-    clusterSet = [[] for i in range(n)]
+def K_Means(X, k, mu):
+    if len(mu) == 0:
+        while True:
+            random_list = np.array(random.sample(X, k))
+            if len(np.unique(random_list)) != len(random_list):
+                mu = random_list
+                break
+    cluster_set = [[] for i in range(k)]
     for x in X:
         closest = 999
         cluster = 0
-        # print("sample")
-        for i in range(n):
+        for i in range(k):
             distance = np.sum(np.square(abs(x - mu[i])))
-
             if distance < closest:
                 closest = distance
                 cluster = i
-
-        # print(cluster,x,closest)
-        clusterSet[cluster].append(x)
-    print("0", clusterSet[0])
-    print("1", clusterSet[1])
-    clus = np.array(clusterSet)
-    print(clus)
-    newmu = [np.mean(clus[i]) for i in range(n)]
-    print(newmu)
-    print("nexIteration\n\n")
-
+        cluster_set[cluster].append(x)
+    clus = np.array(cluster_set)
+    newmu = [np.mean(clus[i], axis=0) for i in range(k)]
     if np.array_equal(mu, newmu):
-        print("since mu are same so we are done")
-        print(newmu)
         return newmu
     else:
-        return K_Means(X, n, newmu)
-def K_Means_better(X,K):
-    clus= K_Means(X, 2, [])
-    counter=0
-    while True:
-        clus2= K_Means(X, 2, [])
-        if(np.array_equal(clus,clus2)):
-            print(clus,clus2)
-            print("same2")
-            counter=counter+1
-            if(counter>3):
+        return K_Means(X, k, newmu)
+
+def K_Means_nr(X, k, mu):
+    if len(mu) == 0:
+        while True:
+            random_list = np.array(random.sample(X, k))
+            if len(np.unique(random_list)) != len(random_list):
+                mu = random_list
                 break
-
+    while True:
+        cluster_set = [[] for i in range(k)]
+        for x in X:
+            closest = 999
+            cluster = 0
+            for i in range(k):
+                distance = np.sum(np.square(abs(x - mu[i])))
+                if distance < closest:
+                    closest = distance
+                    cluster = i
+            cluster_set[cluster].append(x)
+        clus = np.array(cluster_set)
+        newmu = [np.mean(clus[i], axis=0) for i in range(k)]
+        if(len(newmu[1])==0):
+            print("this" , newmu)
+            exit(1)
+        if np.array_equal(mu, newmu):
+            return newmu
         else:
-            clus=clus2
-            print("again")
-    print(clus)
+            mu= newmu
 
+
+def K_Means_better(X, K):
+    cluster_set = []
+    for i in range(10000):
+        clus = K_Means(X, K, [])
+        cluster_set.append([[clus[0]], [clus[1]]])
+    values, counts = np.unique(cluster_set, return_counts=True, axis=0)
+    ind = np.argmax(counts)
+    return values[ind]
