@@ -53,3 +53,7 @@ print("KNN:", acc)
 # X,Y = load_data("data_6.txt")
 # mu = kmeans.K_Means(X,2,[])
 # print("KMeans:",mu)
+
+# X,Y = load_data("data_6.txt")
+# mu = kmeans.K_Means_better(X,2)
+# print("KMeans:",mu)

@@ -136,7 +136,7 @@ def partitions(X, Y, i, theta):
     return leftD, rightD
 
 
-def bestTheta(X, Y, i):
+def bestTheta(X, Y, f):
     sample_size = len(Y)
     h0 = hypertropy(Y)
     best_theta = 0
@@ -144,12 +144,12 @@ def bestTheta(X, Y, i):
     if h0 == 0:
         return -1
     for j in range(sample_size):
-        leftD, rightD = partitions(X, Y, i, X[j][i])
+        leftD, rightD = partitions(X, Y, i, X[j][f])
         ig = h0 - (len(leftD) / float(sample_size)) * hypertropy(np.array(leftD)) - (
                 len(rightD) / float(sample_size)) * hypertropy(np.array(rightD))
         if ig > max_entroy:
             max_entroy = ig
-            best_theta = X[j][i]
+            best_theta = X[j][f]
     return best_theta, max_entroy
 
 

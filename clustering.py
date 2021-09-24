@@ -1,7 +1,8 @@
 import numpy as np
 import random
 
-def K_Means(X, k, mu):
+
+def K_Means_r(X, k, mu):
     if len(mu) == 0:
         while True:
             random_list = np.array(random.sample(X, k))
@@ -23,9 +24,10 @@ def K_Means(X, k, mu):
     if np.array_equal(mu, newmu):
         return newmu
     else:
-        return K_Means(X, k, newmu)
+        return K_Means_r(X, k, newmu)
 
-def K_Means_nr(X, k, mu):
+
+def K_Means(X, k, mu):
     if len(mu) == 0:
         while True:
             random_list = np.array(random.sample(X, k))
@@ -43,15 +45,12 @@ def K_Means_nr(X, k, mu):
                     closest = distance
                     cluster = i
             cluster_set[cluster].append(x)
-        clus = np.array(cluster_set)
-        newmu = [np.mean(clus[i], axis=0) for i in range(k)]
-        if(len(newmu[1])==0):
-            print("this" , newmu)
-            exit(1)
-        if np.array_equal(mu, newmu):
-            return newmu
+        clusters = np.array(cluster_set)
+        new_mu = [np.mean(clusters[i], axis=0) for i in range(k)]
+        if np.array_equal(mu, new_mu):
+            return new_mu
         else:
-            mu= newmu
+            mu = new_mu
 
 
 def K_Means_better(X, K):
