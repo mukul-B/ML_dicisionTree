@@ -31,7 +31,7 @@ class Tree(object):
         self.children.append(node)
 
 
-def hypertropy(Y):
+def entropy(Y):
     YCount = len(Y)
     unique, counts = np.unique(Y, return_counts=True)
     f = lambda x: x / float(YCount)
@@ -45,7 +45,7 @@ def hypertropy(Y):
 def best_feature(X, Y):
     sample_size = len(Y)
     feature_size = len(X[0])
-    h0 = hypertropy(Y)
+    h0 = entropy(Y)
     best_feature = 0
     max_entroy = 0
     if h0 == 0:
@@ -61,8 +61,8 @@ def best_feature(X, Y):
             else:
                 rightD.append(Y[j])
 
-        ig = h0 - (len(leftD) / float(sample_size)) * hypertropy(np.array(leftD)) - (
-                len(rightD) / float(sample_size)) * hypertropy(np.array(rightD))
+        ig = h0 - (len(leftD) / float(sample_size)) * entropy(np.array(leftD)) - (
+                len(rightD) / float(sample_size)) * entropy(np.array(rightD))
         if ig > max_entroy:
             max_entroy = ig
             best_feature = i
@@ -76,7 +76,12 @@ def DT_train_binary(X, Y, max_depth):
     rightY = []
     if len(X) == 0:
         return
-    label = Y.max()
+    #label = Y.max()
+    unique, counts = np.unique(Y, return_counts=True)
+    #print(unique,counts)
+    idx = np.argsort(counts)[-1]
+    label= unique[idx]
+
     if max_depth == 0:
         bf = -1
     else:
@@ -138,15 +143,15 @@ def partitions(X, Y, i, theta):
 
 def bestTheta(X, Y, f):
     sample_size = len(Y)
-    h0 = hypertropy(Y)
+    h0 = entropy(Y)
     best_theta = 0
     max_entroy = 0
     if h0 == 0:
         return -1
     for j in range(sample_size):
-        leftD, rightD = partitions(X, Y, i, X[j][f])
-        ig = h0 - (len(leftD) / float(sample_size)) * hypertropy(np.array(leftD)) - (
-                len(rightD) / float(sample_size)) * hypertropy(np.array(rightD))
+        leftD, rightD = partitions(X, Y, f, X[j][f])
+        ig = h0 - (len(leftD) / float(sample_size)) * entropy(np.array(leftD)) - (
+                len(rightD) / float(sample_size)) * entropy(np.array(rightD))
         if ig > max_entroy:
             max_entroy = ig
             best_theta = X[j][f]
@@ -155,7 +160,7 @@ def bestTheta(X, Y, f):
 
 def best_feature_real(X, Y):
     feature_size = len(X[0])
-    h0 = hypertropy(Y)
+    h0 = entropy(Y)
     best_feature = 0
     with_theta = 0
     max_entroy = 0
@@ -177,7 +182,11 @@ def DT_train_real(X, Y, max_depth):
     rightY = []
     if len(X) == 0:
         return
-    label = Y.max()
+    # label = Y.max()
+    unique, counts = np.unique(Y, return_counts=True)
+    # print(unique,counts)
+    idx = np.argsort(counts)[-1]
+    label = unique[idx]
     if max_depth == 0:
         bf, theta = -1, -1
     else:

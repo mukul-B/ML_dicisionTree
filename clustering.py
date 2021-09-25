@@ -1,5 +1,7 @@
 import numpy as np
 import random
+import warnings
+warnings.filterwarnings("ignore", category=np.VisibleDeprecationWarning)
 
 
 def K_Means_r(X, k, mu):
@@ -30,10 +32,13 @@ def K_Means_r(X, k, mu):
 def K_Means(X, k, mu):
     if len(mu) == 0:
         while True:
-            random_list = np.array(random.sample(X, k))
+            rant_int = random.sample(range(len(X)), k)
+            random_list = np.array([X[i] for i in rant_int])
+            #random_list = np.array(random.sample(X, k))
             if len(np.unique(random_list)) != len(random_list):
                 mu = random_list
                 break
+
     while True:
         cluster_set = [[] for i in range(k)]
         for x in X:

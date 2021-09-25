@@ -17,9 +17,8 @@ def KNN_test(X, Y, a, b, K):
 def choose_K(X_train, Y_train, X_val, Y_val):
     best_accuracy = 0
     best_k = 0
-    for i in range(10):
+    for i in range(1,10):
         accuracy = KNN_test(X_train, Y_train, X_val, Y_val, i)
-        print(accuracy)
         if accuracy > best_accuracy:
             best_accuracy = accuracy
             best_k = i

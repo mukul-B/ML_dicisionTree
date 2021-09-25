@@ -15,7 +15,7 @@ Function used :
     it runs through all feature and divide the sample in two part based on the feature value
     calculate information gain on each feature and return the maximum for the given X: samples
 
-    hypertropy(Y)
+    entropy(Y)
     it finds count of each unique label values and return the sum of probability and log of probability
 
 DT_test_binary(X,Y,DT)
@@ -53,7 +53,7 @@ for each sample in test data
     finally return ratio of accuracy and total sample size
 
 choose_K(X_train,Y_train,X_val,Y_val)
-    in for loop get accuracy from KNN_test by giving differnt K values
+    in for loop get accuracy from KNN_test by giving different K values
     it also keep tract of maximum accuracy and its K value
     returns the best K
 
